@@ -2,9 +2,15 @@ package main
 
 import (
   "github.com/realistschuckle/gohaml"
-  "fmt"
   "io/ioutil"
+  "os"
+  "text/template"
+  "fmt"
 )
+
+type Person struct {
+    Name string
+}
 
 func main() {
   var scope = make(map[string]interface{})
@@ -12,5 +18,11 @@ func main() {
   content, _ := ioutil.ReadFile("sample.haml")
   engine, _ := gohaml.NewEngine(string(content))
   output := engine.Render(scope)
+
   fmt.Println(output)
+  t := template.New(output)
+  t, _ = t.Parse(output)
+
+  p := Person { Name: "@dddaisuke" }
+  t.Execute(os.Stdout, p)
 }
