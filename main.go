@@ -5,7 +5,6 @@ import (
   "io/ioutil"
   "os"
   "text/template"
-  "fmt"
 )
 
 type Person struct {
@@ -19,7 +18,6 @@ func main() {
   engine, _ := gohaml.NewEngine(string(content))
   output := engine.Render(scope)
 
-  fmt.Println(output)
   t := template.New(output)
   t, _ = t.Parse(output)
 
